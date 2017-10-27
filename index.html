@@ -14,7 +14,21 @@
       <div class="form-group">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
           <div class="input-group">
-            <input type="text" class="form-control" id="address" placeholder="Enter your location...">
+            <input type="text" pattern="[A-Za-z]" class="form-control" id="first-name" placeholder="Enter your first name...">
+            <span class="input-group-btn">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </span>
+            <input type="text" class="form-control" id="last-name" placeholder="Enter your last name...">
+            <span class="input-group-btn">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </span>
+          </div><br>
+          <div class="input-group">
+            <input type="text" class="form-control" id="address" placeholder="Enter your address...">
+            <span class="input-group-btn">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </span>
+            <input type="text" class="form-control" id="zip-code" placeholder="Enter your zip code...">
             <span class="input-group-btn">
               <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </span>
@@ -40,9 +54,6 @@
 
   <!-- The jQuery library -->
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
-
-  <!-- The Moment.js library -->
-  <script src="node_modules/moment/moment.js"></script>
 
   <!-- Including the Google Maps API and the GMaps library -->
   <script src="http://maps.google.com/maps/api/js?sensor=true"></script>

@@ -1,3 +1,13 @@
+function allLetter(inputtxt) {
+  var letters = /^[A-Za-z]+$/;
+  if (inputtxt.value.match(letters)) {
+    return true;
+  } else {
+    alert("Name must be all letters...");
+    return false;
+  }
+}
+
 var saveContainer = $(".save-container"),
   favoriteIcon = saveContainer.find(".glyphicon"),
   favoriteLocationsListGroup = $(".list-group");
