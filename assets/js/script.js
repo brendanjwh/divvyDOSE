@@ -61,6 +61,16 @@ function codeAddress() {
     } else {
       alert("Geocode was not successful for the following reason: " + status);
     }
+    console.log("lat:" + results[0].geometry.location);
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(
+      {
+        location: results[0].geometry.location,
+        radius: 50000,
+        type: ["pharmacy"]
+      },
+      processResults
+    );
   });
 }
 
