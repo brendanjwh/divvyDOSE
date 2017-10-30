@@ -12,44 +12,41 @@
 <body>
   <div class="container">
     <div class="jumbotron">
-<h1>Pharmacy Phinder!</h1>
-    <form id="geocoding_form" class="form-horizontal">
-      <div class="form-group">
-        <div class="col-xs-12 col-md-6 col-md-offset-3">
-          <div class="input-group">
-            <input 
-              type="text" 
-              pattern="[A-Za-z]+" 
-              required class="form-control" 
-              id="first-name" 
-              placeholder="Enter your first name..." 
-              title="Only letters please..." />
-            <span class="input-group-btn">
-              <span class="" aria-hidden="true"></span>
-            </span>
-    
-            <input 
-              id="address" 
-              type="text" 
-              placeholder="Address" 
-              required class="form-control">
-            <span class="input-group-btn">
-              <span class="" aria-hidden="true"></span>
-            </span>
+      <h1>Pharma-Phinder!</h1>
+      <form id="geocoding_form" class="form-horizontal">
+        <div class="form-group">
+          <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="input-group">
+              <input 
+                type="text" 
+                pattern="[A-Za-z]+" 
+                required class="form-control" 
+                id="first-name" 
+                placeholder="Enter your first name..." 
+                title="Only letters please..." />
+              <span class="input-group-btn">
+                <span class="" aria-hidden="true"></span>
+              </span>
+      
+              <input 
+                id="address" 
+                type="text" 
+                placeholder="Address" 
+                required class="form-control">
+              <span class="input-group-btn">
+                <span class="" aria-hidden="true"></span>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
       <input type="button" class="btn btn-primary btn-lg" id="submit" onclick="codeAddress()" value="Find Pharmacies">
     </form>
   <div type="text" id="lat" visibility="hidden" /></div>
   <div type="text" id="lng" visibility="hidden" /></div>
-  <div class="map-overlay">
-    <div id="map"></div>
+  <div class="map-overlay"><div id="map"></div></div>
+  <ul id="places"></ul>
   </div>
-  <ul id="places">
-  </ul>
 </div>
-  </div>
 
   <!-- Including the Google Maps API and the GMaps library -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDx454KzVOpY8NzepREU6U9DrBMaszJZRo&libraries=places"></script>
