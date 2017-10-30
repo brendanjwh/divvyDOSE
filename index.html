@@ -24,7 +24,7 @@
             </span>
           </div><br>
           <div class="input-group">
-            <input type="text" class="form-control" id="address" placeholder="Enter your address...">
+            <input type="text" class="form-control" id="address" placeholder="Enter your address..." value="Chicago">
             <span class="input-group-btn">
               <span class="" aria-hidden="true"></span>
             </span>
@@ -35,8 +35,15 @@
           </div>
         </div>
       </div>
-      <input type="submit" onsubmit="codeAddress();">
+      <input type="submit" onclick="initMap()">
     </form>
+
+    </div>
+       <div>
+      <input id="address" type="textbox" style="width:60%">
+      <input type="button" value="Geocode" onclick="codeAddress()">
+      <input type="text" id="lat"/>
+      <input type="text" id="lng"/>
 
     <div class="map-overlay">
       <div id="map"></div>
