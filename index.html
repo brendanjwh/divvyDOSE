@@ -10,9 +10,9 @@
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
-
   <div class="container">
-
+    <div class="jumbotron">
+<h1>Pharmacy Phinder!</h1>
     <form id="geocoding_form" class="form-horizontal">
       <div class="form-group">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -39,24 +39,16 @@
           </div>
         </div>
       </div>
-      <input type="button" id="submit" onclick="codeAddress()" value="Find Pharmacies">
+      <input type="button" class="btn btn-primary btn-lg" id="submit" onclick="codeAddress()" value="Find Pharmacies">
     </form>
-
-    </div>
-       <div>
-
-      <div type="text" id="lat" visibility="hidden" /></div>
-      <div type="text" id="lng" visibility="hidden" /></div>
-    <div class="map-overlay">
-      <div id="map"></div>
-    </div>
-    <div id="places"></div>
-
-<!--     <div class="col-xs-12 col-md-6 col-md-offset-3 save-container">
-      <h4 id="places"></h4>
-      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    </div> -->
-
+  <div type="text" id="lat" visibility="hidden" /></div>
+  <div type="text" id="lng" visibility="hidden" /></div>
+  <div class="map-overlay">
+    <div id="map"></div>
+  </div>
+  <ul id="places">
+  </ul>
+</div>
   </div>
 
   <!-- Including the Google Maps API and the GMaps library -->

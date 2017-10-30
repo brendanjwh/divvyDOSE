@@ -16,10 +16,8 @@ var address;
 var map;
 var geocoder;
 var marker;
-
-$("geocoding_form").submit(function(e) {
-  e.preventDefault();
-});
+var service;
+var markers = [];
 
 function initMap() {
   geocoder = new google.maps.Geocoder();
@@ -58,7 +56,7 @@ function codeAddress() {
     }
 
     // find nearby places
-    var service = new google.maps.places.PlacesService(map);
+    service = new google.maps.places.PlacesService(map);
     service.nearbySearch(
       {
         location: results[0].geometry.location,
@@ -80,6 +78,15 @@ function processResults(results, status) {
   }
 }
 
+function addInfoWindow(marker, content) {
+  marker.infoWindow = new google.maps.InfoWindow({
+    content: content
+  });
+  google.maps.event.addListener(marker, "click", function() {
+    marker.infoWindow.open(map, marker);
+  });
+}
+
 function createMarkers(places) {
   var bounds = new google.maps.LatLngBounds();
   var placesList = document.getElementById("places");
@@ -98,10 +105,14 @@ function createMarkers(places) {
       title: place.name,
       position: place.geometry.location
     });
+    markers.push(marker);
+
     placesList.innerHTML += "<li>" + place.name + "</li>";
 
+    addInfoWindow(marker, place.name);
     bounds.extend(place.geometry.location);
   }
+
   map.fitBounds(bounds);
 }
 

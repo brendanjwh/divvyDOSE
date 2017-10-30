@@ -4,8 +4,14 @@
   margin: 20px auto;
 }
 
+body {
+  background: grey;
+}
+
 h1 {
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 30px;
 }
 
 #geocoding_form {
@@ -20,43 +26,6 @@ h1 {
   margin-left: 4%;
 }
 
-/*.glyphicon {
-  font-size: 18px;
-  z-index: 20;
-  cursor: pointer;
-}
-
-.glyphicon-search {
-  position: relative;
-  right: 30px;
-}
-
-.save-container {
-  display: none;
-  margin-top: 30px;
-}*/
-
-/*#save-location {
-  display: inline;
-  margin: 10px auto;
-  line-height: 1.4;
-}
-
-.save-container .glyphicon-star,
-.save-container .glyphicon-star-empty {
-  display: inline-block;
-  margin-left: 10px;
-  font-size: 22px;
-  vertical-align: text-bottom;
-}*/
-
-/*.glyphicon-menu-right {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  margin-top: -9px;
-}
-*/
 .map-overlay {
   max-width: 550px;
   height: 350px;
@@ -64,6 +33,29 @@ h1 {
   background-color: #fcfcfc;
   position: relative;
   border-radius: 2px;
+}
+
+#places {
+  position: relative;
+  max-width: 50%;
+  text-align: center;
+  margin-left: 10px;
+  margin-top: 20px;
+  left: 25%;
+  top: 25%;
+}
+#places li {
+  color: #969fa8;
+  font-size: 20px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 20px;
+  vertical-align: text-bottom;
+  line-height: 1.4;
+}
+
+#places li:hover {
+  color: green;
 }
 
 .map-overlay p {
@@ -78,40 +70,7 @@ h1 {
 }
 
 #map {
-  max-width: 500px;
+  max-width: 550px;
   height: 350px;
   margin: 0 auto;
-}
-
-/*.list-group {
-  display: none;
-  padding: 0 15px;
-  margin-top: 50px;
-}
-
-.list-group-item {
-  position: relative;
-  padding: 10px 20px;
-}
-
-a.list-group-item {
-  cursor: pointer;
-}
-
-a.list-group-item:hover {
-  background-color: #f7fbff;
-}*/
-
-a.active-location {
-  background-color: #eef6ff;
-}
-
-a.active-location:hover {
-  background-color: #ebf3fc;
-}
-
-a.list-group-item span.createdAt {
-  display: block;
-  color: #969fa8;
-  z-index: -1;
 }
