@@ -1,9 +1,21 @@
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != "function") {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    };
+  }
+}
 // $("#geocoding_form").submit(initMap);
 var address;
 var map;
 var geocoder;
 var marker;
-//initMap();
 
 function initMap() {
   geocoder = new google.maps.Geocoder();
@@ -31,12 +43,15 @@ function codeAddress() {
   geocoder.geocode({ address: address }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       map.setCenter(results[0].geometry.location);
+
+      // marker
       if (marker) marker.setMap(null);
       marker = new google.maps.Marker({
         map: map,
         position: results[0].geometry.location,
         draggable: true
       });
+
       google.maps.event.addListener(marker, "dragend", function() {
         document.getElementById("lat").value = marker.getPosition().lat();
         document.getElementById("lng").value = marker.getPosition().lng();
@@ -82,3 +97,5 @@ function createMarkers(places) {
   }
   map.fitBounds(bounds);
 }
+
+addLoadEvent(initMap());
