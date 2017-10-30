@@ -1,132 +1,82 @@
-// Initialize a google maps using the gmaps library.
-// var map = new GMaps({
-//   el: "#map",
-//   lat: "0",
-//   lng: "0",
-//   zoom: 1
-// });
+window.onload = function() {
+  // $("#geocoding_form").submit(initMap);
+  initMap();
+  var map;
 
-// Initialize the favorite locations array which is kept in localStorage
+  function initMap() {
+    var pyrmont = { lat: -33.866, lng: 151.196 };
 
-// if (!localStorage.hasOwnProperty("favorite-locations")) {
-//   localStorage.setItem("favorite-locations", JSON.stringify([]));
-// }
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: pyrmont,
+      zoom: 17
+    });
 
-// hasFavoriteLocations = JSON.parse(localStorage.getItem("favorite-locations"))
-//   .length
-//   ? true
-//   : false;
-var initialLocation = $("#address")
-  .val()
-  .trim();
-
-var theLocation;
-var map;
-
-// Form submit and Search icon handlers
-$(".glyphicon-search").click(showLocationByAddress);
-$("#geocoding_form").submit(showLocationByAddress);
-
-function showLocationByAddress(e) {
-  console.log("showlocationbyaddress called");
-  e.preventDefault();
-
-  // Getting the coordinates of the entered address
-  GMaps.geocode({
-    address: $("#address")
-      .val()
-      .trim(),
-    callback: function(center, status) {
-      console.log("callback function started");
-      if (status !== "OK") {
-        console.log("status !== ok");
-        return;
-      }
-      console.log("status =" + status);
-
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log("in place services");
-        var latlng = center[0].geometry.location;
-        initialLocation = latlng;
-        var fullAddress = center[0].formatted_address;
-        map = new GMaps({
-          el: "#map",
-          lat: latlng.lat(),
-          lng: latlng.lng()
-        });
-        console.log("map: " + map);
-        getPharmacies(map, initialLocation);
-      }
-      // end of callback()
-    }
-  });
-}
-
-function callback2(results, status) {
-  console.log("results in callback2: " + results);
-  console.log("results in callback2: " + results.length);
-  for (var i = 0; i < results.length; i++) {
-    console.log("result location: " + results[i].geometry.location);
-    console.log("marker created");
-    createMarker(results[i]);
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(
+      {
+        location: pyrmont,
+        radius: 500,
+        type: ["pharmacy"]
+      },
+      processResults
+    );
+    codeAddress;
   }
-}
 
-function getPharmacies(map, initialLocation) {
-  console.log("inside getPharmacies");
-  var request = {
-    location: initialLocation,
-    // 10 miles = 16,093 meters
-    radius: 16093.4,
-    type: "pharmacy"
-  };
-  console.log("map: " + map);
-  var service = new google.maps.places.PlacesService(map);
-  //service.nearbySearch(request, callback2);
+  function codeAddress() {
+    var address = document.getElementById("address").value;
+    geocoder.geocode({ address: address }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        if (marker) marker.setMap(null);
+        marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          draggable: true
+        });
+        google.maps.event.addListener(marker, "dragend", function() {
+          document.getElementById("lat").value = marker.getPosition().lat();
+          document.getElementById("lng").value = marker.getPosition().lng();
+        });
+        document.getElementById("lat").value = marker.getPosition().lat();
+        document.getElementById("lng").value = marker.getPosition().lng();
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
 
-  // var map = new GMaps({
-  //   el: "#map",
-  //   lat: latlng.lat(),
-  //   lng: latlng.lng()
-  // });
-  // console.log("map reassigned: " + map);
+  function processResults(results, status) {
+    if (status !== google.maps.places.PlacesServiceStatus.OK) {
+      return;
+    } else {
+      createMarkers(results);
+    }
+  }
 
-  // Adding a marker on the wanted location
-  // map.addMarker({
-  //   lat: latlng.lat(),
-  //   lng: latlng.lng()
-  // });
-  // end Gmaps.geocode
-}
+  function createMarkers(places) {
+    var bounds = new google.maps.LatLngBounds();
+    var placesList = document.getElementById("places");
 
-// var infowindow;
+    for (var i = 0, place; (place = places[i]); i++) {
+      var image = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
 
-// function initMap() {
-//   var location = { lat: 0, lng: 0 };
+      var marker = new google.maps.Marker({
+        map: map,
+        title: place.name,
+        position: place.geometry.location
+      });
 
-//   map = new google.maps.Map(document.getElementById("map"), {
-//     center: location,
-//     zoom: 1
-//   });
-//   infowindow = new google.maps.InfoWindow();
-// }
+      placesList.innerHTML += "<li>" + place.name + "</li>";
 
-function createMarker(place) {
-  //console.log("place: " + place);
-  //console.log("in create marker");
-  var placeLoc = place.geometry.location;
-  console.log("placeloc = " + placeLoc);
-  // var marker = new google.maps.Marker({
-  //   map: map,
-  //   position: placeLoc
-  // });
-  map.addMarker({
-    position: placeLoc
-  });
-  //console.log("marker: " + marker);
-
-  // google.maps.event.addListener(marker, "click", function() {
-  //   infowindow.setContent(place.name);
-  //   infowindow.open(map, this);
-  // });
-}
+      bounds.extend(place.geometry.location);
+    }
+    map.fitBounds(bounds);
+  }
+};
