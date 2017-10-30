@@ -1,9 +1,10 @@
 window.onload = function() {
   // $("#geocoding_form").submit(initMap);
-  initMap();
+  var address;
   var map;
 
   function initMap() {
+    geocoder = new google.maps.Geocoder();
     var pyrmont = { lat: -33.866, lng: 151.196 };
 
     map = new google.maps.Map(document.getElementById("map"), {
@@ -15,16 +16,17 @@ window.onload = function() {
     service.nearbySearch(
       {
         location: pyrmont,
-        radius: 500,
+        radius: 50000,
         type: ["pharmacy"]
       },
       processResults
     );
-    codeAddress;
   }
 
   function codeAddress() {
+    debugger;
     var address = document.getElementById("address").value;
+    console.log(address);
     geocoder.geocode({ address: address }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);

@@ -6,7 +6,7 @@
   <link href="node_modules/bootswatch/flatly/bootstrap.min.css" type="text/css" rel="stylesheet" />
   <link href="assets/css/styles.css" type="text/css" rel="stylesheet" />
 </head>
-<body>
+<body onload="initMap()">
 
   <div class="container">
 
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <input type="submit">
+      <input type="submit" onsubmit="codeAddress();">
     </form>
 
     <div class="map-overlay">
