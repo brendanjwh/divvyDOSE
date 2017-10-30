@@ -11,35 +11,30 @@ function addLoadEvent(func) {
     };
   }
 }
-// $("#geocoding_form").submit(initMap);
+
 var address;
 var map;
 var geocoder;
 var marker;
 
+$("geocoding_form").submit(function(e) {
+  e.preventDefault();
+});
+
 function initMap() {
   geocoder = new google.maps.Geocoder();
-  var pyrmont = { lat: -33.866, lng: 151.196 };
+  var world = { lat: -0, lng: 0 };
 
   map = new google.maps.Map(document.getElementById("map"), {
-    center: pyrmont,
-    zoom: 17
+    center: world,
+    zoom: 1
   });
-
-  var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch(
-    {
-      location: pyrmont,
-      radius: 50000,
-      type: ["pharmacy"]
-    },
-    processResults
-  );
+  addLoadEvent(codeAddress);
 }
 
 function codeAddress() {
   var address = document.getElementById("address").value;
-  console.log(address);
+
   geocoder.geocode({ address: address }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       map.setCenter(results[0].geometry.location);
@@ -61,13 +56,16 @@ function codeAddress() {
     } else {
       alert("Geocode was not successful for the following reason: " + status);
     }
-    console.log("lat:" + results[0].geometry.location);
+
+    // find nearby places
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch(
       {
         location: results[0].geometry.location,
         radius: 50000,
-        type: ["pharmacy"]
+        type: ["pharmacy"],
+        viewport: results[0].geometry.LatLngBounds,
+        bounds: results[0].geometry.LatLngBounds
       },
       processResults
     );
@@ -100,7 +98,6 @@ function createMarkers(places) {
       title: place.name,
       position: place.geometry.location
     });
-
     placesList.innerHTML += "<li>" + place.name + "</li>";
 
     bounds.extend(place.geometry.location);
@@ -108,4 +105,4 @@ function createMarkers(places) {
   map.fitBounds(bounds);
 }
 
-addLoadEvent(initMap());
+addLoadEvent(initMap);

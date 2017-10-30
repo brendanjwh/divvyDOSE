@@ -20,7 +20,7 @@ h1 {
   margin-left: 4%;
 }
 
-.glyphicon {
+/*.glyphicon {
   font-size: 18px;
   z-index: 20;
   cursor: pointer;
@@ -34,9 +34,9 @@ h1 {
 .save-container {
   display: none;
   margin-top: 30px;
-}
+}*/
 
-#save-location {
+/*#save-location {
   display: inline;
   margin: 10px auto;
   line-height: 1.4;
@@ -48,15 +48,15 @@ h1 {
   margin-left: 10px;
   font-size: 22px;
   vertical-align: text-bottom;
-}
+}*/
 
-.glyphicon-menu-right {
+/*.glyphicon-menu-right {
   position: absolute;
   top: 50%;
   right: 10px;
   margin-top: -9px;
 }
-
+*/
 .map-overlay {
   max-width: 550px;
   height: 350px;
@@ -83,7 +83,7 @@ h1 {
   margin: 0 auto;
 }
 
-.list-group {
+/*.list-group {
   display: none;
   padding: 0 15px;
   margin-top: 50px;
@@ -100,7 +100,7 @@ a.list-group-item {
 
 a.list-group-item:hover {
   background-color: #f7fbff;
-}
+}*/
 
 a.active-location {
   background-color: #eef6ff;
