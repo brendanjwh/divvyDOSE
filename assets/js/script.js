@@ -1,3 +1,17 @@
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != "function") {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    };
+  }
+}
+
 var address;
 var map;
 var geocoder;
@@ -102,4 +116,4 @@ function createMarkers(places) {
   map.fitBounds(bounds);
 }
 
-initMap;
+addLoadEvent(initMap(initMap));
