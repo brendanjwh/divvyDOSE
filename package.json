@@ -4,7 +4,7 @@
   "description": "DivvyDose Coding Challenge",
   "main": "/assets/js/script.js",
   "scripts": {
-    "start": "node app/assets/js/script.js"
+    "start": "node assets/js/script.js"
   },
   "author": "Brendan White",
   "license": "ISC",
